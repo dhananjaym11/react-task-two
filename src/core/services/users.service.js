@@ -1,7 +1,10 @@
 import { loadUsersAction } from '../actions/users.action';
 
 export const loadUsers = () => dispatch => {
-    return fetch("https://jsonplaceholder.typicode.com/users")
+    const requestOptions = {
+        headers: { 'Authorization':  'Bearer ' + localStorage.getItem('token') },
+    };
+    return fetch("https://hbauth.herokuapp.com/users", requestOptions)
         .then((res) => res.json())
         .then((res) => dispatch(loadUsersAction(res)))
         .catch((err) => console.log(err));
